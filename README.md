@@ -93,7 +93,18 @@ O sistema é dividido em dois subsistemas:
 
 ## 🏗 Arquitetura
 
-> _Seção detalhada na etapa de modelagem._
+O back-end segue a arquitetura **MVC** com Spring Boot:
+
+- **Model**: entidades JPA salvas no Supabase (PostgreSQL).
+- **Controller**: endpoints REST que recebem as requisições do front-end.
+- **Service**: regras de negócio (status do pedido, limite de rendimentos, etc.).
+- **View**: o front-end React + Vite, que consome a API e monta as páginas.
+
+```
+React (View)  →  Controller  →  Service  →  Repository  →  Supabase
+```
+
+Detalhes no [Diagrama de Pacotes](docs/diagramas/v1/pacotes-v1.md).
 
 ---
 
@@ -103,10 +114,10 @@ Os modelos UML ficam versionados em [`docs/`](docs/):
 
 | Artefato | Versão inicial (v1) | Versão revisada (v2) |
 |---|---|---|
-| Histórias de Usuário | _a definir_ | _a definir_ |
-| Diagrama de Casos de Uso | _a definir_ | _a definir_ |
-| Diagrama de Classes | _a definir_ | _a definir_ |
-| Diagrama de Pacotes | _a definir_ | _a definir_ |
+| Histórias de Usuário | [v1](docs/historias-usuario/historias-usuario-v1.md) | _a definir_ |
+| Diagrama de Casos de Uso | [v1](docs/diagramas/v1/casos-de-uso-v1.md) | _a definir_ |
+| Diagrama de Classes | [v1](docs/diagramas/v1/classes-v1.md) | _a definir_ |
+| Diagrama de Pacotes | [v1](docs/diagramas/v1/pacotes-v1.md) | _a definir_ |
 
 ---
 
@@ -129,7 +140,9 @@ Os modelos UML ficam versionados em [`docs/`](docs/):
 .
 ├── backend/      # API REST — Spring Boot (MVC)
 ├── frontend/     # Interface web — React + Vite
-├── docs/         # Histórias de usuário e diagramas UML (v1, v2)
+├── docs/
+│   ├── historias-usuario/  # Histórias de usuário (v1, v2)
+│   └── diagramas/          # Diagramas UML em PlantUML (v1, v2)
 └── README.md
 ```
 

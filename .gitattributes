@@ -1,8 +1,0 @@
-# Normaliza finais de linha no repositório (LF) e mantém CRLF apenas onde necessário
-* text=auto eol=lf
-*.cmd text eol=crlf
-*.bat text eol=crlf
-
-*.png binary
-*.jpg binary
-*.jar binary

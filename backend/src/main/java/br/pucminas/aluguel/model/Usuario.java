@@ -24,8 +24,6 @@ public abstract class Usuario {
     @Column(nullable = false)
     private String senha;
 
-    // Cada tipo de usuário (cliente, empresa ou banco) responde com o seu perfil.
-    // A gente usa isso no login pra saber o que cada um pode acessar.
     public abstract String getPerfil();
 
     public Long getId() {

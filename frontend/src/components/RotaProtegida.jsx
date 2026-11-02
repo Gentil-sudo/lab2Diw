@@ -1,8 +1,6 @@
 import { Navigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext.jsx'
 
-// Envolve as páginas que precisam de login. Se não estiver logado, vai pro login.
-// Se a página for só de um perfil (ex.: só cliente) e o usuário for outro, volta pro início.
 export default function RotaProtegida({ perfis, children }) {
   const { usuario } = useAuth()
 

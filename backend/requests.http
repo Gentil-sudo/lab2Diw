@@ -13,7 +13,15 @@ Content-Type: application/json
   "rg": "MG-11.222.333",
   "cpf": "390.533.447-05",
   "nome": "Maria Souza",
-  "endereco": "Rua das Flores, 50",
+  "endereco": {
+    "cep": "30140-071",
+    "logradouro": "Rua das Flores",
+    "numero": "50",
+    "complemento": "",
+    "bairro": "Funcionários",
+    "cidade": "Belo Horizonte",
+    "uf": "MG"
+  },
   "profissao": "Professora",
   "rendimentos": [
     { "entidadeEmpregadora": "Escola Estadual", "valor": 3800 }
@@ -70,7 +78,15 @@ Content-Type: application/json
   "rg": "MG-12.345.678",
   "cpf": "529.982.247-25",
   "nome": "Cliente Teste",
-  "endereco": "Rua A, 100",
+  "endereco": {
+    "cep": "30130-110",
+    "logradouro": "Rua A",
+    "numero": "100",
+    "complemento": "Apto 2",
+    "bairro": "Centro",
+    "cidade": "Belo Horizonte",
+    "uf": "MG"
+  },
   "profissao": "Analista",
   "rendimentos": [
     { "entidadeEmpregadora": "Empresa X", "valor": 4500 }

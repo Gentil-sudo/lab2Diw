@@ -1,24 +1,43 @@
-// As máscaras tiram tudo que não é número, cortam no tamanho máximo
-// e vão colocando os pontos, barra e traço conforme a pessoa digita.
-// Assim não tem como digitar letra nem número a mais.
+export function somenteNumeros(valor, maximo) {
+  return valor.replace(/\D/g, '').slice(0, maximo)
+}
 
 export function mascaraCpf(valor) {
-  return valor
-    .replace(/\D/g, '')
-    .slice(0, 11)
+  return somenteNumeros(valor, 11)
     .replace(/(\d{3})(\d)/, '$1.$2')
     .replace(/(\d{3})(\d)/, '$1.$2')
     .replace(/(\d{3})(\d{1,2})$/, '$1-$2')
 }
 
 export function mascaraCnpj(valor) {
-  return valor
-    .replace(/\D/g, '')
-    .slice(0, 14)
+  return somenteNumeros(valor, 14)
     .replace(/^(\d{2})(\d)/, '$1.$2')
     .replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3')
     .replace(/\.(\d{3})(\d)/, '.$1/$2')
     .replace(/(\d{4})(\d)/, '$1-$2')
+}
+
+export function mascaraCep(valor) {
+  return somenteNumeros(valor, 8).replace(/(\d{5})(\d)/, '$1-$2')
+}
+
+// Os dígitos entram pela direita e os dois últimos são os centavos (12345 -> 123,45).
+export function mascaraDinheiro(valor) {
+  const digitos = somenteNumeros(String(valor), 11).replace(/^0+/, '')
+  if (!digitos) {
+    return ''
+  }
+  const comCentavos = digitos.padStart(3, '0')
+  const reais = comCentavos.slice(0, -2).replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+  return `${reais},${comCentavos.slice(-2)}`
+}
+
+export function dinheiroParaNumero(texto) {
+  return Number(texto.replace(/\./g, '').replace(',', '.')) || 0
+}
+
+export function numeroParaDinheiro(numero) {
+  return mascaraDinheiro(Number(numero).toFixed(2))
 }
 
 export function formatarDinheiro(valor) {

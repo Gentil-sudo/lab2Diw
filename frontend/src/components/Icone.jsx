@@ -74,8 +74,6 @@ const ICONES = {
   ),
 }
 
-// Ícones em SVG desenhados com linhas (mesmo estilo em todo o site).
-// Usa a cor do texto em volta (currentColor), então muda de cor junto com o botão ou link.
 export default function Icone({ nome, tamanho = 20, className = '' }) {
   return (
     <svg

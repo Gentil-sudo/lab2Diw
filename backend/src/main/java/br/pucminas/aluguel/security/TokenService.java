@@ -23,9 +23,7 @@ public class TokenService {
         this.jwtEncoder = jwtEncoder;
     }
 
-    // Gera o token que o front-end guarda depois do login. Dentro dele vai o id
-    // do usuário (subject), o login e o perfil, assim a API sabe quem está
-    // chamando sem precisar consultar o banco a cada requisição.
+    // O token leva o id, o login e o perfil, assim a API sabe quem chamou sem consultar o banco.
     public String gerarToken(Usuario usuario) {
         Instant agora = Instant.now();
 

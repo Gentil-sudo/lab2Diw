@@ -1,9 +1,6 @@
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api'
 
-// Função que todas as telas usam pra falar com o back-end.
-// Ela já coloca o token do usuário logado no cabeçalho, transforma a resposta
-// em JSON e, se der erro, lança um Error com a mensagem que veio da API
-// (e os erros de cada campo, quando for erro de validação).
+// Usada por todas as telas: envia o token, converte a resposta e lança o erro vindo da API.
 export async function api(caminho, { method = 'GET', body } = {}) {
   const usuario = JSON.parse(localStorage.getItem('usuario'))
   const headers = { 'Content-Type': 'application/json' }
@@ -22,7 +19,6 @@ export async function api(caminho, { method = 'GET', body } = {}) {
     throw new Error('Não foi possível conectar ao servidor. O back-end está rodando?')
   }
 
-  // Token vencido ou inválido: desloga e manda pro login
   if (resposta.status === 401 && usuario?.token) {
     localStorage.removeItem('usuario')
     window.location.href = '/login'

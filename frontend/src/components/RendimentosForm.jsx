@@ -1,9 +1,8 @@
+import { mascaraDinheiro } from '../utils/mascaras.js'
 import Icone from './Icone.jsx'
 
 const MAX_RENDIMENTOS = 3
 
-// Lista de rendimentos usada no cadastro e na edição do cliente.
-// O botão de adicionar some quando chega em 3, que é o limite do enunciado.
 export default function RendimentosForm({ rendimentos, onChange }) {
   function alterar(indice, campo, valor) {
     const novos = rendimentos.map((r, i) => (i === indice ? { ...r, [campo]: valor } : r))
@@ -42,12 +41,10 @@ export default function RendimentosForm({ rendimentos, onChange }) {
             <span aria-hidden="true">R$</span>
             <input
               aria-label={`Valor do rendimento ${i + 1}`}
-              type="number"
+              inputMode="numeric"
               placeholder="0,00"
-              min="0.01"
-              step="0.01"
               value={r.valor}
-              onChange={(e) => alterar(i, 'valor', e.target.value)}
+              onChange={(e) => alterar(i, 'valor', mascaraDinheiro(e.target.value))}
               required
             />
           </div>

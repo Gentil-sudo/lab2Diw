@@ -40,9 +40,7 @@ public class ClienteService {
         return ClienteResponse.from(buscarCliente(id));
     }
 
-    // Atualiza os dados do cliente. Os rendimentos são trocados todos de uma vez:
-    // apaga os antigos e coloca os que vieram da tela, assim não precisa controlar
-    // qual foi editado, qual foi removido e qual é novo.
+    // Os rendimentos são substituídos todos de uma vez pelos que vieram da tela.
     @Transactional
     public ClienteResponse atualizar(Long id, ClienteUpdateRequest dados, UsuarioLogado usuario) {
         validarDono(id, usuario);
@@ -56,7 +54,7 @@ public class ClienteService {
         cliente.setRg(dados.rg());
         cliente.setCpf(cpf);
         cliente.setNome(dados.nome());
-        cliente.setEndereco(dados.endereco());
+        cliente.setEndereco(dados.endereco().toEntity());
         cliente.setProfissao(dados.profissao());
 
         cliente.limparRendimentos();
@@ -85,15 +83,12 @@ public class ClienteService {
                 .orElseThrow(() -> new RecursoNaoEncontradoException("Cliente não encontrado"));
     }
 
-    // Agentes podem ver qualquer cliente (precisam dos rendimentos pra analisar o pedido),
-    // mas um cliente só pode ver os próprios dados.
     private void validarAcesso(Long id, UsuarioLogado usuario) {
         if (usuario.isCliente() && !usuario.id().equals(id)) {
             throw new AcessoNegadoException("Você só pode acessar os seus próprios dados");
         }
     }
 
-    // Editar e excluir é só o próprio cliente, nem o agente pode.
     private void validarDono(Long id, UsuarioLogado usuario) {
         if (!usuario.isCliente() || !usuario.id().equals(id)) {
             throw new AcessoNegadoException("Só o próprio cliente pode alterar ou excluir o cadastro");

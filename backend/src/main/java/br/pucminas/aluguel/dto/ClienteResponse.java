@@ -10,7 +10,7 @@ public record ClienteResponse(
         String rg,
         String cpf,
         String nome,
-        String endereco,
+        EnderecoDto endereco,
         String profissao,
         List<RendimentoResponse> rendimentos) {
 
@@ -19,6 +19,6 @@ public record ClienteResponse(
                 .map(RendimentoResponse::from)
                 .toList();
         return new ClienteResponse(c.getId(), c.getLogin(), c.getRg(), c.getCpf(), c.getNome(),
-                c.getEndereco(), c.getProfissao(), rendimentos);
+                EnderecoDto.from(c.getEndereco()), c.getProfissao(), rendimentos);
     }
 }

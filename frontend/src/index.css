@@ -1,7 +1,3 @@
-/*
- * Cores, fontes e efeitos seguem o design system gerado com a skill UI UX Pro Max
- * (ver docs/design-system.md): slate escuro como cor principal e vermelho como destaque.
- */
 :root {
   --color-primary: #1e293b;
   --color-on-primary: #ffffff;
@@ -112,7 +108,6 @@ svg {
   border-top-color: var(--color-primary);
 }
 
-/* Quem prefere menos movimento (configuração do sistema) não vê animações */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -307,7 +302,6 @@ svg {
   margin: 20px 0 12px;
 }
 
-/* Abas cliente / agente */
 .abas {
   display: flex;
   background: var(--color-muted);
@@ -344,7 +338,6 @@ svg {
   box-shadow: var(--sombra);
 }
 
-/* Escolha empresa / banco */
 .opcoes-tipo {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -776,6 +769,24 @@ input.invalido:focus {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0 16px;
+}
+
+.grade.grade-rua,
+.grade.grade-cidade {
+  grid-template-columns: 3fr 1fr;
+}
+
+.grade.grade-cep {
+  align-items: start;
+}
+
+.buscando-cep {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 36px;
+  font-size: 0.85rem;
+  color: var(--color-muted-foreground);
 }
 
 .dica {

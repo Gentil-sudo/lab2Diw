@@ -2,14 +2,15 @@ import { useState } from 'react'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext.jsx'
 import { api } from '../services/api.js'
-import { mascaraCnpj, mascaraCpf } from '../utils/mascaras.js'
+import { dinheiroParaNumero, mascaraCnpj, mascaraCpf } from '../utils/mascaras.js'
 import Alerta from '../components/Alerta.jsx'
 import Campo from '../components/Campo.jsx'
+import EnderecoForm, { ENDERECO_VAZIO } from '../components/EnderecoForm.jsx'
 import Icone from '../components/Icone.jsx'
 import RendimentosForm from '../components/RendimentosForm.jsx'
 import TelaAcesso from '../components/TelaAcesso.jsx'
 
-const CLIENTE_VAZIO = { login: '', senha: '', rg: '', cpf: '', nome: '', endereco: '', profissao: '' }
+const CLIENTE_VAZIO = { login: '', senha: '', rg: '', cpf: '', nome: '', profissao: '' }
 const AGENTE_VAZIO = { login: '', senha: '', nome: '', cnpj: '', tipo: 'EMPRESA' }
 
 export default function Cadastro() {
@@ -17,6 +18,7 @@ export default function Cadastro() {
   const navigate = useNavigate()
   const [tipo, setTipo] = useState('CLIENTE')
   const [cliente, setCliente] = useState(CLIENTE_VAZIO)
+  const [endereco, setEndereco] = useState(ENDERECO_VAZIO)
   const [rendimentos, setRendimentos] = useState([])
   const [agente, setAgente] = useState(AGENTE_VAZIO)
   const [erro, setErro] = useState(null)
@@ -31,18 +33,16 @@ export default function Cadastro() {
     setErro(null)
   }
 
-  // Manda o cadastro pro back-end e, se der certo, já faz o login
-  // com o mesmo usuário e senha, pra pessoa não ter que digitar de novo.
   async function cadastrar(e) {
     e.preventDefault()
     setErro(null)
     setCarregando(true)
     try {
       if (tipo === 'CLIENTE') {
-        const rendimentosConvertidos = rendimentos.map((r) => ({ ...r, valor: Number(r.valor) }))
+        const rendimentosConvertidos = rendimentos.map((r) => ({ ...r, valor: dinheiroParaNumero(r.valor) }))
         await api('/auth/cadastro/cliente', {
           method: 'POST',
-          body: { ...cliente, rendimentos: rendimentosConvertidos },
+          body: { ...cliente, endereco, rendimentos: rendimentosConvertidos },
         })
         await login(cliente.login, cliente.senha)
       } else {
@@ -91,12 +91,13 @@ export default function Cadastro() {
               <Campo label="RG" value={cliente.rg} erro={campos.rg} required maxLength={20}
                 onChange={(e) => setCliente({ ...cliente, rg: e.target.value })} />
             </div>
-            <div className="grade">
-              <Campo label="Endereço" value={cliente.endereco} erro={campos.endereco} required autoComplete="street-address"
-                onChange={(e) => setCliente({ ...cliente, endereco: e.target.value })} />
-              <Campo label="Profissão" value={cliente.profissao} erro={campos.profissao}
-                onChange={(e) => setCliente({ ...cliente, profissao: e.target.value })} />
-            </div>
+            <Campo label="Profissão" value={cliente.profissao} erro={campos.profissao}
+              onChange={(e) => setCliente({ ...cliente, profissao: e.target.value })} />
+
+            <h3 className="secao-titulo">Endereço</h3>
+            <EnderecoForm endereco={endereco} onChange={setEndereco} campos={campos} />
+
+            <h3 className="secao-titulo">Renda</h3>
 
             <RendimentosForm rendimentos={rendimentos} onChange={setRendimentos} />
             {campos.rendimentos && <small className="erro-campo" role="alert">{campos.rendimentos}</small>}

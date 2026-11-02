@@ -1,7 +1,5 @@
 import { useId } from 'react'
 
-// Campo de formulário com label ligado ao input (htmlFor/id), assim leitores de tela
-// conseguem ler o nome do campo. Quando tem erro, a mensagem é anunciada (role="alert").
 export default function Campo({ label, erro, id, ...props }) {
   const idGerado = useId()
   const campoId = id || idGerado

@@ -44,7 +44,6 @@ export default function Layout() {
         </div>
       </header>
 
-      {/* A key faz a animação de entrada rodar de novo a cada troca de página */}
       <main className="conteudo entrada" key={location.pathname}>
         <Outlet />
       </main>

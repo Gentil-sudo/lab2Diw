@@ -38,9 +38,7 @@ public class SecurityConfig {
     @Value("${app.frontend-url}")
     private String frontendUrl;
 
-    // Aqui ficam as regras de acesso: login e cadastro são livres,
-    // todo o resto só funciona se a requisição mandar um token válido.
-    // Como usamos token, não existe sessão no servidor (STATELESS).
+    // Login e cadastro são livres; o resto exige um token válido (sem sessão no servidor).
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -56,8 +54,7 @@ public class SecurityConfig {
         return http.build();
     }
 
-    // Pega o "perfil" que guardamos dentro do token e transforma em ROLE_CLIENTE,
-    // ROLE_EMPRESA ou ROLE_BANCO. É isso que o @PreAuthorize dos controllers confere.
+    // Transforma o perfil do token em ROLE_CLIENTE, ROLE_EMPRESA ou ROLE_BANCO, usado no @PreAuthorize.
     @Bean
     public JwtAuthenticationConverter jwtAuthenticationConverter() {
         JwtGrantedAuthoritiesConverter perfis = new JwtGrantedAuthoritiesConverter();
@@ -86,7 +83,6 @@ public class SecurityConfig {
                 .build();
     }
 
-    // Libera o front-end (Vite) a chamar a API, já que ele roda em outra porta.
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();

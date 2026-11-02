@@ -3,9 +3,6 @@ import { api } from '../services/api.js'
 
 const AuthContext = createContext(null)
 
-// Guarda quem está logado e deixa isso disponível pra qualquer tela.
-// O usuário também vai pro localStorage, assim o login continua
-// mesmo se a pessoa der F5 na página.
 export function AuthProvider({ children }) {
   const [usuario, setUsuario] = useState(() => JSON.parse(localStorage.getItem('usuario')))
 

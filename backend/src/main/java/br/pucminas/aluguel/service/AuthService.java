@@ -55,7 +55,7 @@ public class AuthService {
         cliente.setRg(dados.rg());
         cliente.setCpf(cpf);
         cliente.setNome(dados.nome());
-        cliente.setEndereco(dados.endereco());
+        cliente.setEndereco(dados.endereco().toEntity());
         cliente.setProfissao(dados.profissao());
         if (dados.rendimentos() != null) {
             for (RendimentoRequest r : dados.rendimentos()) {
@@ -66,8 +66,6 @@ public class AuthService {
         return ClienteResponse.from(clienteRepository.save(cliente));
     }
 
-    // O agente pode ser empresa ou banco. O tipo escolhido no cadastro decide
-    // qual classe é criada, e isso define o que ele vai poder fazer no sistema.
     @Transactional
     public AgenteResponse cadastrarAgente(CadastroAgenteRequest dados) {
         String cnpj = somenteNumeros(dados.cnpj());
@@ -85,9 +83,7 @@ public class AuthService {
         return AgenteResponse.from(agenteRepository.save(agente));
     }
 
-    // Confere login e senha. A senha do banco está criptografada, então o
-    // matches() criptografa a senha digitada e compara as duas. A mensagem de erro
-    // é sempre a mesma pra não entregar se o que errou foi o login ou a senha.
+    // A mensagem de erro é a mesma para login e senha errados, para não dar pista de qual falhou.
     public LoginResponse login(LoginRequest dados) {
         Usuario usuario = usuarioRepository.findByLogin(dados.login())
                 .orElseThrow(CredenciaisInvalidasException::new);

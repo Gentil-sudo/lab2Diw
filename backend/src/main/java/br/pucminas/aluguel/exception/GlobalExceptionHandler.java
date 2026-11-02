@@ -12,8 +12,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-// Essa classe "escuta" os erros de todos os controllers. Assim o front-end
-// sempre recebe um JSON no mesmo formato, em vez de uma página de erro do Spring.
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -41,8 +39,6 @@ public class GlobalExceptionHandler {
                 .body(new ErroResponse(400, e.getMessage()));
     }
 
-    // Quando o @Valid encontra campos inválidos, junta todos os erros num mapa
-    // (campo -> mensagem) pra tela conseguir mostrar o erro embaixo de cada campo.
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErroResponse> validacao(MethodArgumentNotValidException e) {
         Map<String, String> campos = new HashMap<>();

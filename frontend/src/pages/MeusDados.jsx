@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext.jsx'
 import { api } from '../services/api.js'
-import { mascaraCpf } from '../utils/mascaras.js'
+import { dinheiroParaNumero, mascaraCep, mascaraCpf, numeroParaDinheiro } from '../utils/mascaras.js'
 import Alerta from '../components/Alerta.jsx'
 import Campo from '../components/Campo.jsx'
+import EnderecoForm, { ENDERECO_VAZIO } from '../components/EnderecoForm.jsx'
 import Icone from '../components/Icone.jsx'
 import RendimentosForm from '../components/RendimentosForm.jsx'
 
@@ -12,14 +13,17 @@ export default function MeusDados() {
   const { usuario, logout } = useAuth()
   const navigate = useNavigate()
   const [form, setForm] = useState(null)
+  const [endereco, setEndereco] = useState(ENDERECO_VAZIO)
   const [rendimentos, setRendimentos] = useState([])
   const [erro, setErro] = useState(null)
   const [sucesso, setSucesso] = useState('')
   const [salvando, setSalvando] = useState(false)
 
   function preencher(dados) {
+    const enderecoSalvo = { ...ENDERECO_VAZIO, ...dados.endereco }
     setForm({ ...dados, cpf: mascaraCpf(dados.cpf) })
-    setRendimentos(dados.rendimentos)
+    setEndereco({ ...enderecoSalvo, cep: mascaraCep(enderecoSalvo.cep || '') })
+    setRendimentos(dados.rendimentos.map((r) => ({ ...r, valor: numeroParaDinheiro(r.valor) })))
   }
 
   useEffect(() => {
@@ -38,9 +42,9 @@ export default function MeusDados() {
           rg: form.rg,
           cpf: form.cpf,
           nome: form.nome,
-          endereco: form.endereco,
+          endereco,
           profissao: form.profissao,
-          rendimentos: rendimentos.map((r) => ({ entidadeEmpregadora: r.entidadeEmpregadora, valor: Number(r.valor) })),
+          rendimentos: rendimentos.map((r) => ({ entidadeEmpregadora: r.entidadeEmpregadora, valor: dinheiroParaNumero(r.valor) })),
         },
       })
       preencher(dados)
@@ -100,12 +104,21 @@ export default function MeusDados() {
                 onChange={(e) => setForm({ ...form, rg: e.target.value })} />
             </div>
             <div className="grade">
-              <Campo label="Endereço" value={form.endereco} erro={campos.endereco} required
-                onChange={(e) => setForm({ ...form, endereco: e.target.value })} />
               <Campo label="Profissão" value={form.profissao || ''} erro={campos.profissao}
                 onChange={(e) => setForm({ ...form, profissao: e.target.value })} />
+              <Campo label="Login" value={form.login} disabled />
             </div>
-            <Campo label="Login" value={form.login} disabled />
+          </div>
+        </section>
+
+        <section className="cartao secao">
+          <div className="secao-info">
+            <span className="secao-icone"><Icone nome="inicio" tamanho={20} /></span>
+            <h3>Endereço</h3>
+            <p>Digite o CEP para preencher o restante automaticamente.</p>
+          </div>
+          <div className="secao-campos">
+            <EnderecoForm endereco={endereco} onChange={setEndereco} campos={campos} />
           </div>
         </section>
 

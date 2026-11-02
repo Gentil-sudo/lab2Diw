@@ -6,6 +6,7 @@ import java.util.List;
 import br.pucminas.aluguel.exception.RegraNegocioException;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -25,8 +26,8 @@ public class Cliente extends Usuario {
     @Column(nullable = false)
     private String nome;
 
-    @Column(nullable = false)
-    private String endereco;
+    @Embedded
+    private Endereco endereco;
 
     private String profissao;
 
@@ -38,9 +39,7 @@ public class Cliente extends Usuario {
         return "CLIENTE";
     }
 
-    // O enunciado pede no máximo 3 rendimentos por cliente, então a regra fica aqui
-    // pra ninguém conseguir passar desse limite. Também já liga o rendimento ao
-    // cliente, senão o JPA salva o rendimento sem dono.
+    // Regra do enunciado: no máximo 3 rendimentos por cliente.
     public void adicionarRendimento(Rendimento rendimento) {
         if (rendimentos.size() >= MAX_RENDIMENTOS) {
             throw new RegraNegocioException("O cliente pode ter no máximo " + MAX_RENDIMENTOS + " rendimentos");
@@ -49,7 +48,6 @@ public class Cliente extends Usuario {
         rendimentos.add(rendimento);
     }
 
-    // Usado na edição do cliente: apaga os rendimentos antigos antes de colocar os novos.
     public void limparRendimentos() {
         rendimentos.clear();
     }
@@ -78,11 +76,11 @@ public class Cliente extends Usuario {
         this.nome = nome;
     }
 
-    public String getEndereco() {
+    public Endereco getEndereco() {
         return endereco;
     }
 
-    public void setEndereco(String endereco) {
+    public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
 

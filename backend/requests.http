@@ -96,3 +96,39 @@ Content-Type: application/json
 ### Excluir minha conta (troque o 1 pelo seu id)
 DELETE {{api}}/clientes/1
 Authorization: Bearer {{login.response.body.token}}
+
+### ===== Automóveis =====
+
+### Listar automóveis (qualquer usuário logado)
+GET {{api}}/automoveis
+Authorization: Bearer {{login.response.body.token}}
+
+### Cadastrar automóvel (só agentes: logue como teste.banco)
+POST {{api}}/automoveis
+Authorization: Bearer {{login.response.body.token}}
+Content-Type: application/json
+
+{
+  "matricula": "12345678901",
+  "ano": 2024,
+  "marca": "Fiat",
+  "modelo": "Argo",
+  "placa": "ABC-1D23"
+}
+
+### Editar automóvel (só o agente dono; troque o 1 pelo id)
+PUT {{api}}/automoveis/1
+Authorization: Bearer {{login.response.body.token}}
+Content-Type: application/json
+
+{
+  "matricula": "12345678901",
+  "ano": 2024,
+  "marca": "Fiat",
+  "modelo": "Argo Drive",
+  "placa": "ABC-1D23"
+}
+
+### Remover automóvel (só o agente dono; troque o 1 pelo id)
+DELETE {{api}}/automoveis/1
+Authorization: Bearer {{login.response.body.token}}

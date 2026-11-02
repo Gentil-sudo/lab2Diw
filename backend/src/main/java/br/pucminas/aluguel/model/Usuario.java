@@ -26,6 +26,8 @@ public abstract class Usuario {
 
     public abstract String getPerfil();
 
+    public abstract String getNome();
+
     public Long getId() {
         return id;
     }

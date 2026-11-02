@@ -92,8 +92,7 @@ public class AuthService {
             throw new CredenciaisInvalidasException();
         }
 
-        String nome = usuario instanceof Cliente c ? c.getNome() : ((Agente) usuario).getNome();
-        return new LoginResponse(tokenService.gerarToken(usuario), usuario.getId(), nome, usuario.getPerfil());
+        return new LoginResponse(tokenService.gerarToken(usuario), usuario.getId(), usuario.getNome(), usuario.getPerfil());
     }
 
     private void validarLoginDisponivel(String login) {

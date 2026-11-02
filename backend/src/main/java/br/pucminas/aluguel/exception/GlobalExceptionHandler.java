@@ -29,6 +29,12 @@ public class GlobalExceptionHandler {
                 .body(new ErroResponse(401, e.getMessage()));
     }
 
+    @ExceptionHandler(AcessoNegadoException.class)
+    public ResponseEntity<ErroResponse> acessoNegado(AcessoNegadoException e) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body(new ErroResponse(403, e.getMessage()));
+    }
+
     @ExceptionHandler(RegraNegocioException.class)
     public ResponseEntity<ErroResponse> regraNegocio(RegraNegocioException e) {
         return ResponseEntity.badRequest()

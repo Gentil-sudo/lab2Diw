@@ -1,0 +1,82 @@
+### Requisições para testar a API no VS Code (extensão "REST Client")
+### Clique em "Send Request" em cima de cada requisição.
+
+@api = http://localhost:8080/api
+
+### Cadastrar cliente
+POST {{api}}/auth/cadastro/cliente
+Content-Type: application/json
+
+{
+  "login": "maria",
+  "senha": "123456",
+  "rg": "MG-11.222.333",
+  "cpf": "390.533.447-05",
+  "nome": "Maria Souza",
+  "endereco": "Rua das Flores, 50",
+  "profissao": "Professora",
+  "rendimentos": [
+    { "entidadeEmpregadora": "Escola Estadual", "valor": 3800 }
+  ]
+}
+
+### Cadastrar agente (tipo EMPRESA ou BANCO)
+POST {{api}}/auth/cadastro/agente
+Content-Type: application/json
+
+{
+  "login": "locadora",
+  "senha": "123456",
+  "nome": "Locadora BH",
+  "cnpj": "11.444.777/0001-61",
+  "tipo": "EMPRESA"
+}
+
+### Login (o token da resposta é usado nas próximas requisições)
+# @name login
+POST {{api}}/auth/login
+Content-Type: application/json
+
+{
+  "login": "teste.cliente",
+  "senha": "123456"
+}
+
+### Login com senha errada (deve dar 401)
+POST {{api}}/auth/login
+Content-Type: application/json
+
+{
+  "login": "teste.cliente",
+  "senha": "errada"
+}
+
+### ===== Clientes (faça o login acima antes) =====
+
+### Meus dados (logado como cliente)
+GET {{api}}/clientes/me
+Authorization: Bearer {{login.response.body.token}}
+
+### Listar todos os clientes (só agentes: logue como teste.banco)
+GET {{api}}/clientes
+Authorization: Bearer {{login.response.body.token}}
+
+### Atualizar meus dados (troque o 1 pelo seu id)
+PUT {{api}}/clientes/1
+Authorization: Bearer {{login.response.body.token}}
+Content-Type: application/json
+
+{
+  "rg": "MG-12.345.678",
+  "cpf": "529.982.247-25",
+  "nome": "Cliente Teste",
+  "endereco": "Rua A, 100",
+  "profissao": "Analista",
+  "rendimentos": [
+    { "entidadeEmpregadora": "Empresa X", "valor": 4500 }
+  ]
+}
+
+### Excluir minha conta (troque o 1 pelo seu id)
+DELETE {{api}}/clientes/1
+Authorization: Bearer {{login.response.body.token}}

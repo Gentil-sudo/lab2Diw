@@ -21,11 +21,11 @@ public abstract class Usuario {
     @Column(nullable = false, unique = true)
     private String login;
 
-    // Guarda a senha criptografada (BCrypt), nunca o texto puro
     @Column(nullable = false)
     private String senha;
 
-    // CLIENTE, EMPRESA ou BANCO. Usado no controle de acesso.
+    // Cada tipo de usuário (cliente, empresa ou banco) responde com o seu perfil.
+    // A gente usa isso no login pra saber o que cada um pode acessar.
     public abstract String getPerfil();
 
     public Long getId() {

@@ -26,7 +26,6 @@ public class Contrato {
     @JoinColumn(name = "pedido_id", unique = true)
     private Pedido pedido;
 
-    // Agente que executou o contrato
     @ManyToOne(optional = false)
     @JoinColumn(name = "agente_id")
     private Agente agente;
@@ -34,7 +33,6 @@ public class Contrato {
     @Column(nullable = false)
     private LocalDate dataAssinatura = LocalDate.now();
 
-    // Define de quem o automóvel passa a ser propriedade
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TipoProprietario tipoProprietario;

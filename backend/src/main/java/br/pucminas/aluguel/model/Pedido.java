@@ -45,7 +45,6 @@ public class Pedido {
     @Column(nullable = false)
     private LocalDateTime dataCriacao = LocalDateTime.now();
 
-    // Preenchidos quando o agente avalia o pedido
     @ManyToOne
     @JoinColumn(name = "agente_id")
     private Agente agenteAvaliador;

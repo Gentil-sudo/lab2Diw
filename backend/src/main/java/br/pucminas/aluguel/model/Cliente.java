@@ -37,6 +37,9 @@ public class Cliente extends Usuario {
         return "CLIENTE";
     }
 
+    // O enunciado pede no máximo 3 rendimentos por cliente, então a regra fica aqui
+    // pra ninguém conseguir passar desse limite. Também já liga o rendimento ao
+    // cliente, senão o JPA salva o rendimento sem dono.
     public void adicionarRendimento(Rendimento rendimento) {
         if (rendimentos.size() >= MAX_RENDIMENTOS) {
             throw new IllegalArgumentException("O cliente pode ter no máximo " + MAX_RENDIMENTOS + " rendimentos");
@@ -45,6 +48,7 @@ public class Cliente extends Usuario {
         rendimentos.add(rendimento);
     }
 
+    // Usado na edição do cliente: apaga os rendimentos antigos antes de colocar os novos.
     public void limparRendimentos() {
         rendimentos.clear();
     }

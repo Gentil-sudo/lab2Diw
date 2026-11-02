@@ -37,7 +37,6 @@ public class Automovel {
     @Enumerated(EnumType.STRING)
     private TipoProprietario tipoProprietario;
 
-    // Cliente, empresa ou banco dono do automóvel
     @ManyToOne
     @JoinColumn(name = "proprietario_id")
     private Usuario proprietario;

@@ -22,7 +22,6 @@ public class ContratoCredito {
     @JoinColumn(name = "contrato_id", unique = true)
     private Contrato contrato;
 
-    // Só bancos podem conceder crédito
     @ManyToOne(optional = false)
     @JoinColumn(name = "banco_id")
     private Banco banco;
@@ -30,7 +29,6 @@ public class ContratoCredito {
     @Column(nullable = false)
     private double valor;
 
-    // Taxa de juros ao mês (%)
     @Column(nullable = false)
     private double taxaJuros;
 

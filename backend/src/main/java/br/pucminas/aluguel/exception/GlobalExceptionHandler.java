@@ -23,6 +23,12 @@ public class GlobalExceptionHandler {
                 .body(new ErroResponse(404, e.getMessage()));
     }
 
+    @ExceptionHandler(CredenciaisInvalidasException.class)
+    public ResponseEntity<ErroResponse> credenciaisInvalidas(CredenciaisInvalidasException e) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(new ErroResponse(401, e.getMessage()));
+    }
+
     @ExceptionHandler(RegraNegocioException.class)
     public ResponseEntity<ErroResponse> regraNegocio(RegraNegocioException e) {
         return ResponseEntity.badRequest()

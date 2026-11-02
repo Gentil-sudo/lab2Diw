@@ -3,6 +3,7 @@ package br.pucminas.aluguel.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.pucminas.aluguel.exception.RegraNegocioException;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -42,7 +43,7 @@ public class Cliente extends Usuario {
     // cliente, senão o JPA salva o rendimento sem dono.
     public void adicionarRendimento(Rendimento rendimento) {
         if (rendimentos.size() >= MAX_RENDIMENTOS) {
-            throw new IllegalArgumentException("O cliente pode ter no máximo " + MAX_RENDIMENTOS + " rendimentos");
+            throw new RegraNegocioException("O cliente pode ter no máximo " + MAX_RENDIMENTOS + " rendimentos");
         }
         rendimento.setCliente(this);
         rendimentos.add(rendimento);

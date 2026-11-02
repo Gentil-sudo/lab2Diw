@@ -1,7 +1,10 @@
 import { useState } from 'react'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext.jsx'
+import Alerta from '../components/Alerta.jsx'
 import Campo from '../components/Campo.jsx'
+import Icone from '../components/Icone.jsx'
+import TelaAcesso from '../components/TelaAcesso.jsx'
 
 export default function Login() {
   const { usuario, login } = useAuth()
@@ -29,25 +32,25 @@ export default function Login() {
   }
 
   return (
-    <div className="tela-acesso">
-      <form className="cartao acesso" onSubmit={entrar}>
-        <h1>🚗 Aluguel de Carros</h1>
-        <p className="dica">Entre com seu usuário e senha</p>
+    <TelaAcesso>
+      <form className="form-acesso" onSubmit={entrar}>
+        <h2>Bem-vindo de volta</h2>
+        <p className="dica">Entre com seu usuário e senha para continuar.</p>
 
-        {erro && <div className="alerta erro">{erro}</div>}
+        {erro && <Alerta>{erro}</Alerta>}
 
-        <Campo label="Login" value={form.login} required autoFocus
+        <Campo label="Login" value={form.login} required autoFocus autoComplete="username"
           onChange={(e) => setForm({ ...form, login: e.target.value })} />
-        <Campo label="Senha" type="password" value={form.senha} required
+        <Campo label="Senha" type="password" value={form.senha} required autoComplete="current-password"
           onChange={(e) => setForm({ ...form, senha: e.target.value })} />
 
-        <button className="botao" disabled={carregando}>
-          {carregando ? 'Entrando...' : 'Entrar'}
+        <button className="botao destaque grande" disabled={carregando}>
+          {carregando ? <><span className="spinner" /> Entrando...</> : <>Entrar <Icone nome="setaDireita" tamanho={18} /></>}
         </button>
         <p className="rodape-form">
-          Não tem conta? <Link to="/cadastro">Cadastre-se</Link>
+          Ainda não tem conta? <Link to="/cadastro">Cadastre-se</Link>
         </p>
       </form>
-    </div>
+    </TelaAcesso>
   )
 }

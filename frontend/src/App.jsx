@@ -6,6 +6,7 @@ import Cadastro from './pages/Cadastro.jsx'
 import Inicio from './pages/Inicio.jsx'
 import MeusDados from './pages/MeusDados.jsx'
 import Clientes from './pages/Clientes.jsx'
+import Automoveis from './pages/Automoveis.jsx'
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
       <Route element={<RotaProtegida><Layout /></RotaProtegida>}>
         <Route path="/" element={<Inicio />} />
         <Route path="/meus-dados" element={<RotaProtegida perfis={['CLIENTE']}><MeusDados /></RotaProtegida>} />
+        <Route path="/automoveis" element={<Automoveis />} />
         <Route path="/clientes" element={<RotaProtegida perfis={['EMPRESA', 'BANCO']}><Clientes /></RotaProtegida>} />
       </Route>
 

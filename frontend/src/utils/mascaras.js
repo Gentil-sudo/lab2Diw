@@ -21,6 +21,21 @@ export function mascaraCep(valor) {
   return somenteNumeros(valor, 8).replace(/(\d{5})(\d)/, '$1-$2')
 }
 
+// Placa antiga (ABC-1234) ou Mercosul (ABC-1D23): cada posição só aceita o tipo certo de caractere.
+export function mascaraPlaca(valor) {
+  const formato = ['L', 'L', 'L', 'N', 'X', 'N', 'N']
+  let placa = ''
+  for (const c of valor.toUpperCase().replace(/[^A-Z0-9]/g, '')) {
+    const esperado = formato[placa.length]
+    if (!esperado) break
+    const ehLetra = /[A-Z]/.test(c)
+    if ((esperado === 'L' && ehLetra) || (esperado === 'N' && !ehLetra) || esperado === 'X') {
+      placa += c
+    }
+  }
+  return placa.length > 3 ? `${placa.slice(0, 3)}-${placa.slice(3)}` : placa
+}
+
 // Os dígitos entram pela direita e os dois últimos são os centavos (12345 -> 123,45).
 export function mascaraDinheiro(valor) {
   const digitos = somenteNumeros(String(valor), 11).replace(/^0+/, '')

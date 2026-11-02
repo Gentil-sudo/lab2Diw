@@ -28,6 +28,7 @@ export default function Layout() {
           <nav className="menu" aria-label="Menu principal">
             <NavLink to="/" end><Icone nome="inicio" tamanho={18} /> Início</NavLink>
             {ehCliente && <NavLink to="/meus-dados"><Icone nome="usuario" tamanho={18} /> Meus dados</NavLink>}
+            <NavLink to="/automoveis"><Icone nome="carro" tamanho={18} /> Automóveis</NavLink>
             {!ehCliente && <NavLink to="/clientes"><Icone nome="usuarios" tamanho={18} /> Clientes</NavLink>}
           </nav>
 

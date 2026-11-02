@@ -10,8 +10,14 @@ export default function Inicio() {
   const primeiroNome = usuario.nome.split(' ')[0]
 
   const atalhos = ehCliente
-    ? [{ para: '/meus-dados', icone: 'usuario', titulo: 'Meus dados', texto: 'Veja e atualize seu cadastro e seus rendimentos' }]
-    : [{ para: '/clientes', icone: 'usuarios', titulo: 'Clientes', texto: 'Consulte os clientes cadastrados e seus rendimentos' }]
+    ? [
+        { para: '/automoveis', icone: 'carro', titulo: 'Automóveis', texto: 'Veja os carros disponíveis para aluguel' },
+        { para: '/meus-dados', icone: 'usuario', titulo: 'Meus dados', texto: 'Veja e atualize seu cadastro e seus rendimentos' },
+      ]
+    : [
+        { para: '/automoveis', icone: 'carro', titulo: 'Automóveis', texto: 'Cadastre e gerencie os carros da sua frota' },
+        { para: '/clientes', icone: 'usuarios', titulo: 'Clientes', texto: 'Consulte os clientes cadastrados e seus rendimentos' },
+      ]
 
   return (
     <>

@@ -78,4 +78,13 @@ public class ContratoCredito {
     public void setParcelas(int parcelas) {
         this.parcelas = parcelas;
     }
+
+    // Tabela Price: parcela fixa com juros compostos ao mês.
+    public double calcularParcela() {
+        double taxa = taxaJuros / 100;
+        if (taxa == 0) {
+            return valor / parcelas;
+        }
+        return valor * taxa / (1 - Math.pow(1 + taxa, -parcelas));
+    }
 }

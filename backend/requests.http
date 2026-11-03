@@ -189,3 +189,30 @@ Content-Type: application/json
   "aprovado": true,
   "parecer": "Renda compatível com o valor do aluguel."
 }
+
+### ===== Contratos (agentes executam, só banco concede crédito) =====
+
+### Executar contrato de um pedido APROVADO (tipoProprietario: CLIENTE, EMPRESA ou BANCO)
+POST {{api}}/contratos
+Authorization: Bearer {{login.response.body.token}}
+Content-Type: application/json
+
+{
+  "pedidoId": 1,
+  "tipoProprietario": "BANCO"
+}
+
+### Conceder crédito ao contrato (troque o 1 pelo id do contrato)
+POST {{api}}/contratos/1/credito
+Authorization: Bearer {{login.response.body.token}}
+Content-Type: application/json
+
+{
+  "valor": 300.00,
+  "taxaJuros": 1.5,
+  "parcelas": 6
+}
+
+### Listar contratos (cliente vê só os dele)
+GET {{api}}/contratos
+Authorization: Bearer {{login.response.body.token}}

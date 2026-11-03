@@ -37,6 +37,9 @@ public class Contrato {
     @Column(nullable = false)
     private TipoProprietario tipoProprietario;
 
+    @OneToOne(mappedBy = "contrato")
+    private ContratoCredito credito;
+
     public Long getId() {
         return id;
     }
@@ -67,5 +70,13 @@ public class Contrato {
 
     public void setTipoProprietario(TipoProprietario tipoProprietario) {
         this.tipoProprietario = tipoProprietario;
+    }
+
+    public ContratoCredito getCredito() {
+        return credito;
+    }
+
+    public void setCredito(ContratoCredito credito) {
+        this.credito = credito;
     }
 }

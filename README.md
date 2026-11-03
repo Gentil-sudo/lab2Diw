@@ -249,6 +249,9 @@ Acesse `http://localhost:5173`.
 ### Meus contratos
 ![Contratos do cliente](docs/imagens/contratos-cliente.png)
 
+### Meus dados
+![Cadastro do cliente com endereço preenchido pelo CEP](docs/imagens/meus-dados.png)
+
 ### Telas por perfil
 
 | Perfil | Telas |

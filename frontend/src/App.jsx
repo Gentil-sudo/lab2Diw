@@ -9,6 +9,7 @@ import Clientes from './pages/Clientes.jsx'
 import Automoveis from './pages/Automoveis.jsx'
 import Pedidos from './pages/Pedidos.jsx'
 import AnalisePedidos from './pages/AnalisePedidos.jsx'
+import Contratos from './pages/Contratos.jsx'
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
         <Route path="/automoveis" element={<Automoveis />} />
         <Route path="/pedidos" element={<RotaProtegida perfis={['CLIENTE']}><Pedidos /></RotaProtegida>} />
         <Route path="/analise" element={<RotaProtegida perfis={['EMPRESA', 'BANCO']}><AnalisePedidos /></RotaProtegida>} />
+        <Route path="/contratos" element={<Contratos />} />
         <Route path="/clientes" element={<RotaProtegida perfis={['EMPRESA', 'BANCO']}><Clientes /></RotaProtegida>} />
       </Route>
 

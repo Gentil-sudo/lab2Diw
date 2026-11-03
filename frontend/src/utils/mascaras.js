@@ -47,6 +47,10 @@ export function mascaraDinheiro(valor) {
   return `${reais},${comCentavos.slice(-2)}`
 }
 
+export function mascaraPercentual(valor) {
+  return mascaraDinheiro(somenteNumeros(String(valor), 4))
+}
+
 export function dinheiroParaNumero(texto) {
   return Number(texto.replace(/\./g, '').replace(',', '.')) || 0
 }

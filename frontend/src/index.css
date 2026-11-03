@@ -1483,6 +1483,24 @@ tr:last-child td {
   margin: 0 0 6px;
 }
 
+.credito {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--color-border);
+}
+
+.credito > strong {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+}
+
+.credito .analise-resumo {
+  margin-bottom: 6px;
+}
+
 .texto-perigo {
   color: var(--color-destructive);
 }

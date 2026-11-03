@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useAuth } from '../context/AuthContext.jsx'
 import { api } from '../services/api.js'
 import {
   dinheiroParaNumero, formatarData, formatarDinheiro, iniciais, mascaraDinheiro, mascaraPlaca, numeroParaDinheiro,
@@ -22,6 +23,7 @@ export default function AnalisePedidos() {
   const [sucesso, setSucesso] = useState('')
   const [ajustando, setAjustando] = useState(null)
   const [avaliando, setAvaliando] = useState(null)
+  const [contratando, setContratando] = useState(null)
 
   function carregar() {
     api('/pedidos').then(setPedidos).catch((err) => setErro(err.message))
@@ -32,6 +34,7 @@ export default function AnalisePedidos() {
   function aoConcluir(mensagem) {
     setAjustando(null)
     setAvaliando(null)
+    setContratando(null)
     setSucesso(mensagem)
     carregar()
   }
@@ -114,6 +117,14 @@ export default function AnalisePedidos() {
                   </button>
                 </div>
               )}
+
+              {p.status === 'APROVADO' && (
+                <div className="pedido-acoes">
+                  <button className="botao destaque" onClick={() => { setSucesso(''); setContratando(p) }}>
+                    <Icone nome="documento" tamanho={16} /> Executar contrato
+                  </button>
+                </div>
+              )}
             </article>
           ))}
         </div>
@@ -121,6 +132,7 @@ export default function AnalisePedidos() {
 
       {ajustando && <FormAjuste pedido={ajustando} aoFechar={() => setAjustando(null)} aoConcluir={aoConcluir} />}
       {avaliando && <FormAvaliacao pedido={avaliando} aoFechar={() => setAvaliando(null)} aoConcluir={aoConcluir} />}
+      {contratando && <FormContrato pedido={contratando} aoFechar={() => setContratando(null)} aoConcluir={aoConcluir} />}
     </>
   )
 }
@@ -274,6 +286,60 @@ function FormAvaliacao({ pedido, aoFechar, aoConcluir }) {
           {enviando === 'aprovar' ? <><span className="spinner" /> Enviando...</> : <><Icone nome="check" tamanho={16} /> Aprovar</>}
         </button>
       </div>
+    </Modal>
+  )
+}
+
+function FormContrato({ pedido, aoFechar, aoConcluir }) {
+  const { usuario } = useAuth()
+  const [tipo, setTipo] = useState('CLIENTE')
+  const [erro, setErro] = useState('')
+  const [salvando, setSalvando] = useState(false)
+  const ehBanco = usuario.perfil === 'BANCO'
+
+  async function executar(e) {
+    e.preventDefault()
+    setErro('')
+    setSalvando(true)
+    try {
+      await api('/contratos', { method: 'POST', body: { pedidoId: pedido.id, tipoProprietario: tipo } })
+      aoConcluir(`Contrato do pedido #${pedido.id} executado.`)
+    } catch (err) {
+      setErro(err.message)
+    } finally {
+      setSalvando(false)
+    }
+  }
+
+  return (
+    <Modal titulo={`Executar contrato do pedido #${pedido.id}`} aoFechar={aoFechar}>
+      <form onSubmit={executar}>
+        {erro && <Alerta>{erro}</Alerta>}
+        <p className="dica">
+          {pedido.clienteNome} · {pedido.automovel.marca} {pedido.automovel.modelo} · {formatarDinheiro(pedido.valor)}
+        </p>
+        <p className="dica">Em nome de quem o automóvel fica registrado?</p>
+        <div className="opcoes-tipo" role="radiogroup" aria-label="Proprietário do automóvel">
+          <label className={tipo === 'CLIENTE' ? 'opcao marcada' : 'opcao'}>
+            <input type="radio" name="proprietario" checked={tipo === 'CLIENTE'} onChange={() => setTipo('CLIENTE')} />
+            <span className="opcao-icone"><Icone nome="usuario" tamanho={20} /></span>
+            <strong>Cliente</strong>
+            <small>{pedido.clienteNome}</small>
+          </label>
+          <label className={tipo === usuario.perfil ? 'opcao marcada' : 'opcao'}>
+            <input type="radio" name="proprietario" checked={tipo === usuario.perfil} onChange={() => setTipo(usuario.perfil)} />
+            <span className="opcao-icone"><Icone nome={ehBanco ? 'banco' : 'empresa'} tamanho={20} /></span>
+            <strong>{ehBanco ? 'Banco' : 'Empresa'}</strong>
+            <small>{usuario.nome}</small>
+          </label>
+        </div>
+        <div className="modal-acoes">
+          <button type="button" className="botao secundario" onClick={aoFechar}>Voltar</button>
+          <button className="botao destaque" disabled={salvando}>
+            {salvando ? <><span className="spinner" /> Executando...</> : <><Icone nome="check" tamanho={18} /> Executar contrato</>}
+          </button>
+        </div>
+      </form>
     </Modal>
   )
 }

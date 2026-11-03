@@ -12,11 +12,13 @@ export default function Inicio() {
   const atalhos = ehCliente
     ? [
         { para: '/pedidos', icone: 'documento', titulo: 'Meus pedidos', texto: 'Faça pedidos e acompanhe o status de cada um' },
+        { para: '/contratos', icone: 'carteira', titulo: 'Meus contratos', texto: 'Veja seus contratos de aluguel e de crédito' },
         { para: '/automoveis', icone: 'carro', titulo: 'Automóveis', texto: 'Veja os carros disponíveis para aluguel' },
         { para: '/meus-dados', icone: 'usuario', titulo: 'Meus dados', texto: 'Veja e atualize seu cadastro e seus rendimentos' },
       ]
     : [
         { para: '/analise', icone: 'escudo', titulo: 'Análise de pedidos', texto: 'Avalie os pedidos que aguardam parecer financeiro' },
+        { para: '/contratos', icone: 'carteira', titulo: 'Contratos', texto: 'Acompanhe os contratos executados e os créditos' },
         { para: '/automoveis', icone: 'carro', titulo: 'Automóveis', texto: 'Cadastre e gerencie os carros da sua frota' },
         { para: '/clientes', icone: 'usuarios', titulo: 'Clientes', texto: 'Consulte os clientes cadastrados e seus rendimentos' },
       ]

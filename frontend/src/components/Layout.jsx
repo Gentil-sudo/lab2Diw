@@ -30,6 +30,7 @@ export default function Layout() {
             {ehCliente && <NavLink to="/pedidos"><Icone nome="documento" tamanho={18} /> Meus pedidos</NavLink>}
             {ehCliente && <NavLink to="/meus-dados"><Icone nome="usuario" tamanho={18} /> Meus dados</NavLink>}
             {!ehCliente && <NavLink to="/analise"><Icone nome="escudo" tamanho={18} /> Análise de pedidos</NavLink>}
+            <NavLink to="/contratos"><Icone nome="carteira" tamanho={18} /> Contratos</NavLink>
             <NavLink to="/automoveis"><Icone nome="carro" tamanho={18} /> Automóveis</NavLink>
             {!ehCliente && <NavLink to="/clientes"><Icone nome="usuarios" tamanho={18} /> Clientes</NavLink>}
           </nav>

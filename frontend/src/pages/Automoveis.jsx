@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext.jsx'
 import { api } from '../services/api.js'
-import { mascaraPlaca, somenteNumeros } from '../utils/mascaras.js'
+import { dinheiroParaNumero, formatarDinheiro, mascaraDinheiro, mascaraPlaca, numeroParaDinheiro, somenteNumeros } from '../utils/mascaras.js'
 import Alerta from '../components/Alerta.jsx'
 import Campo from '../components/Campo.jsx'
 import Icone from '../components/Icone.jsx'
 import Modal from '../components/Modal.jsx'
 
-const FORM_VAZIO = { matricula: '', ano: '', marca: '', modelo: '', placa: '' }
+const FORM_VAZIO = { matricula: '', ano: '', marca: '', modelo: '', placa: '', valorDiaria: '' }
 const NOMES_TIPO = { CLIENTE: 'Cliente', EMPRESA: 'Empresa', BANCO: 'Banco' }
 
 export default function Automoveis() {
@@ -99,6 +100,9 @@ export default function Automoveis() {
                   <span className="placa">{mascaraPlaca(a.placa)}</span>
                 </div>
                 <h3>{a.marca} {a.modelo}</h3>
+                <p className="diaria">
+                  {a.valorDiaria ? <><strong>{formatarDinheiro(a.valorDiaria)}</strong> / dia</> : <span className="sem-dado">Diária não informada</span>}
+                </p>
                 <dl className="carro-dados">
                   <div><dt><Icone nome="calendario" tamanho={15} /> Ano</dt><dd>{a.ano}</dd></div>
                   <div><dt><Icone nome="documento" tamanho={15} /> Matrícula</dt><dd>{a.matricula}</dd></div>
@@ -107,12 +111,17 @@ export default function Automoveis() {
                     <dd>{a.proprietarioNome} <small>({NOMES_TIPO[a.tipoProprietario]})</small></dd>
                   </div>
                 </dl>
+                {!ehAgente && a.valorDiaria && (
+                  <Link to={`/pedidos?automovel=${a.id}`} className="botao destaque carro-alugar">
+                    Alugar este carro <Icone nome="setaDireita" tamanho={16} />
+                  </Link>
+                )}
                 {ehMeu && (
                   <div className="carro-acoes">
                     <span className="etiqueta">Seu automóvel</span>
                     <div>
                       <button className="botao-icone" aria-label={`Editar ${a.modelo}`} title="Editar"
-                        onClick={() => { setSucesso(''); setEditando({ ...a, ano: String(a.ano), placa: mascaraPlaca(a.placa) }) }}>
+                        onClick={() => { setSucesso(''); setEditando({ ...a, ano: String(a.ano), placa: mascaraPlaca(a.placa), valorDiaria: a.valorDiaria ? numeroParaDinheiro(a.valorDiaria) : '' }) }}>
                         <Icone nome="editar" tamanho={16} />
                       </button>
                       <button className="botao-icone perigo" aria-label={`Remover ${a.modelo}`} title="Remover"
@@ -144,7 +153,7 @@ function FormAutomovel({ inicial, aoFechar, aoSalvar }) {
     setErro(null)
     setSalvando(true)
     try {
-      const dados = { ...form, ano: Number(form.ano) }
+      const dados = { ...form, ano: Number(form.ano), valorDiaria: dinheiroParaNumero(form.valorDiaria) }
       if (novo) {
         await api('/automoveis', { method: 'POST', body: dados })
       } else {
@@ -176,9 +185,14 @@ function FormAutomovel({ inicial, aoFechar, aoSalvar }) {
           <Campo label="Ano" value={form.ano} erro={campos.ano} required inputMode="numeric" placeholder="2024" maxLength={4}
             onChange={(e) => setForm({ ...form, ano: somenteNumeros(e.target.value, 4) })} />
         </div>
-        <Campo label="Matrícula (RENAVAM)" value={form.matricula} erro={campos.matricula} required
-          inputMode="numeric" placeholder="11 dígitos" maxLength={11}
-          onChange={(e) => setForm({ ...form, matricula: somenteNumeros(e.target.value, 11) })} />
+        <div className="grade">
+          <Campo label="Matrícula (RENAVAM)" value={form.matricula} erro={campos.matricula} required
+            inputMode="numeric" placeholder="11 dígitos" maxLength={11}
+            onChange={(e) => setForm({ ...form, matricula: somenteNumeros(e.target.value, 11) })} />
+          <Campo label="Valor da diária (R$)" value={form.valorDiaria} erro={campos.valorDiaria} required
+            inputMode="numeric" placeholder="0,00"
+            onChange={(e) => setForm({ ...form, valorDiaria: mascaraDinheiro(e.target.value) })} />
+        </div>
 
         <div className="modal-acoes">
           <button type="button" className="botao secundario" onClick={aoFechar}>Cancelar</button>

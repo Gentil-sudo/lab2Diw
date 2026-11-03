@@ -55,6 +55,11 @@ export function numeroParaDinheiro(numero) {
   return mascaraDinheiro(Number(numero).toFixed(2))
 }
 
+export function formatarData(dataIso) {
+  const [ano, mes, dia] = dataIso.slice(0, 10).split('-')
+  return `${dia}/${mes}/${ano}`
+}
+
 export function formatarDinheiro(valor) {
   return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
 }

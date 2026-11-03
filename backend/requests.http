@@ -113,7 +113,8 @@ Content-Type: application/json
   "ano": 2024,
   "marca": "Fiat",
   "modelo": "Argo",
-  "placa": "ABC-1D23"
+  "placa": "ABC-1D23",
+  "valorDiaria": 150.00
 }
 
 ### Editar automóvel (só o agente dono; troque o 1 pelo id)
@@ -126,9 +127,65 @@ Content-Type: application/json
   "ano": 2024,
   "marca": "Fiat",
   "modelo": "Argo Drive",
-  "placa": "ABC-1D23"
+  "placa": "ABC-1D23",
+  "valorDiaria": 150.00
 }
 
 ### Remover automóvel (só o agente dono; troque o 1 pelo id)
 DELETE {{api}}/automoveis/1
 Authorization: Bearer {{login.response.body.token}}
+
+### ===== Pedidos =====
+
+### Listar pedidos (cliente vê os seus; agente vê todos, pode filtrar com ?status=EM_ANALISE)
+GET {{api}}/pedidos
+Authorization: Bearer {{login.response.body.token}}
+
+### Criar pedido (só cliente)
+POST {{api}}/pedidos
+Authorization: Bearer {{login.response.body.token}}
+Content-Type: application/json
+
+{
+  "automovelId": 1,
+  "dataInicio": "2026-12-10",
+  "dataFim": "2026-12-15"
+}
+
+### Modificar pedido em análise (troque o 1 pelo id)
+PUT {{api}}/pedidos/1
+Authorization: Bearer {{login.response.body.token}}
+Content-Type: application/json
+
+{
+  "automovelId": 1,
+  "dataInicio": "2026-12-10",
+  "dataFim": "2026-12-13"
+}
+
+### Cancelar pedido (troque o 1 pelo id)
+PATCH {{api}}/pedidos/1/cancelar
+Authorization: Bearer {{login.response.body.token}}
+
+### ===== Análise de pedidos (só agentes: logue como teste.banco) =====
+
+### Ajustar datas e valor de um pedido em análise (troque o 1 pelo id)
+PATCH {{api}}/pedidos/1/ajustar
+Authorization: Bearer {{login.response.body.token}}
+Content-Type: application/json
+
+{
+  "dataInicio": "2026-12-10",
+  "dataFim": "2026-12-13",
+  "valor": 400.00
+}
+
+### Avaliar pedido: aprovado true = APROVADO, false = REPROVADO (troque o 1 pelo id)
+PATCH {{api}}/pedidos/1/avaliar
+Authorization: Bearer {{login.response.body.token}}
+Content-Type: application/json
+
+{
+  "aprovado": true,
+  "parecer": "Renda compatível com o valor do aluguel."
+}

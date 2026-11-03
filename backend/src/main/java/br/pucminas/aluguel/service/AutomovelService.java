@@ -96,6 +96,7 @@ public class AutomovelService {
         automovel.setMarca(dados.marca());
         automovel.setModelo(dados.modelo());
         automovel.setPlaca(placa);
+        automovel.setValorDiaria(dados.valorDiaria());
     }
 
     private Automovel buscarAutomovel(Long id) {

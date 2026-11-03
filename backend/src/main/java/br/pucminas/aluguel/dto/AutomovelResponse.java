@@ -9,6 +9,7 @@ public record AutomovelResponse(
         String marca,
         String modelo,
         String placa,
+        Double valorDiaria,
         String tipoProprietario,
         Long proprietarioId,
         String proprietarioNome) {
@@ -18,6 +19,6 @@ public record AutomovelResponse(
         String donoNome = a.getProprietario() != null ? a.getProprietario().getNome() : null;
         String tipo = a.getTipoProprietario() != null ? a.getTipoProprietario().name() : null;
         return new AutomovelResponse(a.getId(), a.getMatricula(), a.getAno(), a.getMarca(), a.getModelo(),
-                a.getPlaca(), tipo, donoId, donoNome);
+                a.getPlaca(), a.getValorDiaria(), tipo, donoId, donoNome);
     }
 }

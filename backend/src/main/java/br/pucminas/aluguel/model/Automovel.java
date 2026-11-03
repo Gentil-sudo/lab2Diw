@@ -34,6 +34,8 @@ public class Automovel {
     @Column(nullable = false, unique = true, length = 7)
     private String placa;
 
+    private Double valorDiaria;
+
     @Enumerated(EnumType.STRING)
     private TipoProprietario tipoProprietario;
 
@@ -43,6 +45,14 @@ public class Automovel {
 
     public Long getId() {
         return id;
+    }
+
+    public Double getValorDiaria() {
+        return valorDiaria;
+    }
+
+    public void setValorDiaria(Double valorDiaria) {
+        this.valorDiaria = valorDiaria;
     }
 
     public String getMatricula() {

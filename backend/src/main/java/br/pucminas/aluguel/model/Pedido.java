@@ -49,10 +49,21 @@ public class Pedido {
     @JoinColumn(name = "agente_id")
     private Agente agenteAvaliador;
 
+    @Column(length = 500)
     private String parecer;
+
+    private LocalDateTime dataAvaliacao;
 
     public Long getId() {
         return id;
+    }
+
+    public LocalDateTime getDataAvaliacao() {
+        return dataAvaliacao;
+    }
+
+    public void setDataAvaliacao(LocalDateTime dataAvaliacao) {
+        this.dataAvaliacao = dataAvaliacao;
     }
 
     public Cliente getCliente() {

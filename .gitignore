@@ -17,3 +17,6 @@ frontend/dist/
 .DS_Store
 Thumbs.db
 *.log
+
+# Vídeos de demonstração (podem ter dados pessoais)
+docs/videos/

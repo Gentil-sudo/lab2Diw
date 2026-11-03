@@ -234,6 +234,23 @@ Acesse `http://localhost:5173`.
 
 ## 🎥 Demonstração
 
+### Início do cliente
+![Tela inicial do cliente](docs/imagens/inicio-cliente.png)
+
+### Meus pedidos
+![Lista de pedidos do cliente com filtros por status](docs/imagens/meus-pedidos.png)
+
+### Novo pedido de aluguel
+![Formulário de novo pedido com valor estimado](docs/imagens/novo-pedido.png)
+
+### Automóveis
+![Automóveis disponíveis com valor da diária e proprietário](docs/imagens/automoveis.png)
+
+### Meus contratos
+![Contratos do cliente](docs/imagens/contratos-cliente.png)
+
+### Telas por perfil
+
 | Perfil | Telas |
 |---|---|
 | Cliente | Início, Meus pedidos, Contratos, Automóveis, Meus dados |

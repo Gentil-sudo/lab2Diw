@@ -1,12 +1,12 @@
 # 🚗 Sistema de Aluguel de Carros
 
-> Sistema web para apoio à gestão de aluguéis de automóveis, permitindo efetuar, modificar, consultar e cancelar pedidos pela Internet, com avaliação financeira por agentes (empresas e bancos) e geração de contratos.
+> Site onde clientes pedem o aluguel de um carro, empresas e bancos analisam o pedido e, se aprovado, fecham o contrato (com financiamento opcional pelo banco).
 
-Laboratório 02 — Desenvolvimento e Integração de Aplicações Web (DIAW) · Engenharia de Software · PUC Minas
+Laboratório 02 da disciplina DIAW · Engenharia de Software · PUC Minas
 
 ---
 
-## 🚧 Status do Projeto
+## ✅ Status do Projeto
 
 ![Status](https://img.shields.io/badge/status-concluído-brightgreen)
 ![Java](https://img.shields.io/badge/Java-25-orange?logo=openjdk)
@@ -31,7 +31,6 @@ Laboratório 02 — Desenvolvimento e Integração de Aplicações Web (DIAW) ·
 - [Demonstração](#-demonstração)
 - [Testes](#-testes)
 - [Autores](#-autores)
-- [Contribuição](#-contribuição)
 - [Agradecimentos](#-agradecimentos)
 - [Licença](#-licença)
 
@@ -40,24 +39,25 @@ Laboratório 02 — Desenvolvimento e Integração de Aplicações Web (DIAW) ·
 ## 🔗 Links Úteis
 
 - **Repositório:** https://github.com/Gentil-sudo/lab2Diw
-- **Enunciado:** Laboratório 02 — Sistema de Aluguel de Carros (Prof. João Paulo Carneiro Aramuni)
+- **Documentação (diagramas e histórias):** [`docs/`](docs/)
+- **Requisições de exemplo da API:** [`backend/requests.http`](backend/requests.http)
 
 ---
 
 ## 📝 Sobre o Projeto
 
-O sistema só pode ser utilizado após **cadastro prévio e autenticação** (usuário e senha).
+Para usar o site é preciso criar uma conta e entrar com login e senha. Existem três tipos de conta:
 
-- **Clientes** (usuários individuais) podem **introduzir, modificar, consultar e cancelar** pedidos de aluguel.
-- **Agentes** (empresas e bancos) podem **modificar e avaliar** pedidos.
-- Após introduzidos, os pedidos são **analisados financeiramente** pelos agentes e, em caso de parecer positivo, seguem para **execução do contrato**.
-- Dependendo do tipo de contrato, o automóvel pode ser registrado como **propriedade do cliente, da empresa ou do banco**.
-- O aluguel pode estar associado a um **contrato de crédito** concedido por um banco agente.
+- **Cliente:** faz o pedido de aluguel escolhendo o carro e as datas. Pode alterar ou cancelar o pedido enquanto ele não foi fechado e acompanha o status de cada um.
+- **Empresa:** cadastra os carros, analisa os pedidos olhando a renda do cliente, aprova ou reprova com um parecer e fecha o contrato dos aprovados.
+- **Banco:** faz tudo o que a empresa faz e ainda pode financiar o aluguel com um contrato de crédito (valor, juros e parcelas).
 
-O sistema é dividido em dois subsistemas:
+Ao fechar o contrato, o agente escolhe em nome de quem o carro fica registrado: do cliente, da empresa ou do banco.
 
-1. **Gestão de pedidos e contratos** — back-end Spring Boot (API REST, arquitetura MVC).
-2. **Construção dinâmica das páginas web** — front-end React + Vite.
+O projeto tem duas partes:
+
+1. **Back-end** em Spring Boot (API REST no padrão MVC): cuida dos pedidos, contratos e regras.
+2. **Front-end** em React + Vite: monta as telas e conversa com a API.
 
 ---
 
@@ -80,7 +80,8 @@ O sistema é dividido em dois subsistemas:
 - React 19
 - Vite 8
 - React Router 7
-- CSS puro (design system gerado com a skill UI UX Pro Max)
+- CSS puro, com cores e fontes definidas em [`docs/design-system.md`](docs/design-system.md)
+- ViaCEP (preenche o endereço pelo CEP)
 
 ### 🖥️ Back-end
 - Java — JDK 25
@@ -288,21 +289,12 @@ mvn test
 
 ---
 
-## 🤝 Contribuição
-
-1. Faça um fork do projeto.
-2. Crie uma branch: `git checkout -b feat/minha-feature`.
-3. Siga o padrão [Conventional Commits](https://www.conventionalcommits.org/pt-br/).
-4. Abra um Pull Request.
-
----
-
 ## 🙏 Agradecimentos
 
-- Prof. João Paulo Carneiro Aramuni — Engenharia de Software, PUC Minas.
+- Ao professor João Paulo Carneiro Aramuni, pelas aulas e pelo material de Spring Boot da disciplina.
 
 ---
 
 ## 📄 Licença
 
-Projeto acadêmico desenvolvido para fins educacionais.
+Projeto feito para a faculdade, sem fins comerciais.

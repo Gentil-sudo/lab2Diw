@@ -184,16 +184,50 @@ O sistema segue uma arquitetura **cliente-servidor** com o back-end em **MVC em 
 
 ### Diagramas
 
-Para melhor visualização e entendimento da estrutura do sistema, os diagramas principais (versão final, v2) estão organizados lado a lado. Clique em uma imagem para ampliá-la.
+Para melhor visualização e entendimento da estrutura do sistema, os diagramas estão organizados do mais geral (visão do sistema) ao mais detalhado (classes do back-end). **Clique em qualquer imagem para abri-la em tamanho original.**
+
+#### 1. Visão geral do sistema (v2 — versão final)
 
 | Diagrama de Arquitetura | Detalhe da Arquitetura |
 | :---: | :---: |
-| **Diagrama de Pacotes (Macro)** | **Classes de Serviço (Micro)** |
-| <a href="docs/imagens/uml/pacotes-v2.png"><img src="docs/imagens/uml/pacotes-v2.png" alt="Diagrama de Pacotes v2" width="400px"></a> | <a href="docs/imagens/uml/classes-servicos-v2.png"><img src="docs/imagens/uml/classes-servicos-v2.png" alt="Diagrama das classes de serviço v2" width="400px"></a> |
-| **Diagrama de Classes (Entidades)** | **Diagrama de Casos de Uso** |
-| <a href="docs/imagens/uml/classes-v2.png"><img src="docs/imagens/uml/classes-v2.png" alt="Diagrama de Classes v2" width="400px"></a> | <a href="docs/imagens/uml/casos-de-uso-v2.png"><img src="docs/imagens/uml/casos-de-uso-v2.png" alt="Diagrama de Casos de Uso v2" width="400px"></a> |
-| **Diagrama de Estados do Pedido** | **Versão inicial (v1)** |
-| <a href="docs/imagens/uml/estados-pedido-v2.png"><img src="docs/imagens/uml/estados-pedido-v2.png" alt="Diagrama de estados do pedido" width="400px"></a> | [Casos de uso v1](docs/imagens/uml/casos-de-uso-v1.png) · [Classes v1](docs/imagens/uml/classes-v1.png) · [Pacotes v1](docs/imagens/uml/pacotes-v1.png) |
+| **Diagrama de Pacotes (Macro)** | **Diagrama de Casos de Uso** |
+| <a href="docs/imagens/uml/pacotes-v2.png"><img src="docs/imagens/uml/pacotes-v2.png" alt="Diagrama de Pacotes v2" width="400px"></a> | <a href="docs/imagens/uml/casos-de-uso-v2.png"><img src="docs/imagens/uml/casos-de-uso-v2.png" alt="Diagrama de Casos de Uso v2" width="400px"></a> |
+| **Diagrama de Classes (Domínio)** | **Diagrama de Estados do Pedido** |
+| <a href="docs/imagens/uml/classes-v2.png"><img src="docs/imagens/uml/classes-v2.png" alt="Diagrama de Classes v2" width="400px"></a> | <a href="docs/imagens/uml/estados-pedido-v2.png"><img src="docs/imagens/uml/estados-pedido-v2.png" alt="Diagrama de estados do pedido" width="400px"></a> |
+| **Classes de Serviço (Micro)** | |
+| <a href="docs/imagens/uml/classes-servicos-v2.png"><img src="docs/imagens/uml/classes-servicos-v2.png" alt="Diagrama das classes de serviço v2" width="400px"></a> | |
+
+#### 2. Diagramas de Classes detalhados do Back-end
+
+Diagramas completos de todas as classes do back-end, com atributos, métodos e relacionamentos. Também disponíveis em PDF: [`docs/diagramas/uml-backend.pdf`](docs/diagramas/uml-backend.pdf).
+
+**2.1 Pacote `model` — entidades JPA**
+
+Herança `Usuario → Cliente / Agente → Empresa / Banco` (estratégia JOINED), composição de `Endereco` e `Rendimento` em `Cliente`, e as associações entre `Pedido`, `Automovel`, `Contrato` e `ContratoCredito`.
+
+<a href="docs/imagens/uml/backend-classes-model.png"><img src="docs/imagens/uml/backend-classes-model.png" alt="Diagrama de classes do pacote model: entidades JPA" width="100%"></a>
+
+**2.2 Controllers → Services → Repositories (e segurança)**
+
+Cada `RestController` delega para o seu `Service`, que usa os `Repository` (Spring Data JPA). As cores das setas identificam o service de origem. Embaixo, as classes de segurança: `TokenService`, `SecurityConfig` e `UsuarioLogado`.
+
+<a href="docs/imagens/uml/backend-controllers-services-repositories.png"><img src="docs/imagens/uml/backend-controllers-services-repositories.png" alt="Diagrama de classes de controllers, services, repositories e segurança" width="100%"></a>
+
+**2.3 Pacotes `dto` e `exception`**
+
+DTOs de entrada (Requests) e saída (Responses), todos `record`, e o tratamento global de erros com `GlobalExceptionHandler` e `ErroResponse`.
+
+<a href="docs/imagens/uml/backend-dto-exception.png"><img src="docs/imagens/uml/backend-dto-exception.png" alt="Diagrama de classes dos pacotes dto e exception" width="100%"></a>
+
+#### 3. Versão inicial (v1 — modelagem antes do código)
+
+| Diagrama de Casos de Uso (v1) | Diagrama de Classes (v1) |
+| :---: | :---: |
+| <a href="docs/imagens/uml/casos-de-uso-v1.png"><img src="docs/imagens/uml/casos-de-uso-v1.png" alt="Diagrama de Casos de Uso v1" width="400px"></a> | <a href="docs/imagens/uml/classes-v1.png"><img src="docs/imagens/uml/classes-v1.png" alt="Diagrama de Classes v1" width="400px"></a> |
+| **Diagrama de Pacotes (v1)** | |
+| <a href="docs/imagens/uml/pacotes-v1.png"><img src="docs/imagens/uml/pacotes-v1.png" alt="Diagrama de Pacotes v1" width="400px"></a> | |
+
+#### 4. Documentação dos diagramas
 
 A documentação completa de cada diagrama (com o código Mermaid e as histórias de usuário) está em [`docs/`](docs/):
 
@@ -549,7 +583,7 @@ serve -s frontend/dist
 │
 └── /docs                         # 📚 Documentação
     ├── /historias-usuario        # 📝 Histórias de usuário (v1, v2).
-    ├── /diagramas                # 📐 Diagramas UML com o código Mermaid (v1, v2).
+    ├── /diagramas                # 📐 Diagramas UML com o código Mermaid (v1, v2) e uml-backend.pdf.
     ├── /imagens                  # 🖼️ Capturas de tela.
     │   └── /uml                  # 📐 Diagramas UML em PNG.
     └── design-system.md          # 🎨 Origem do design system (a versão visual está na rota /design-system).

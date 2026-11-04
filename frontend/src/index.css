@@ -1693,19 +1693,8 @@ textarea:focus {
 }
 
 @media (max-width: 768px) {
-  .usuario-info {
-    display: none;
-  }
-
   .topo-conteudo {
-    gap: 12px;
-    flex-wrap: wrap;
-    padding: 12px 16px;
-  }
-
-  .menu {
-    order: 3;
-    flex-basis: 100%;
+    padding: 10px 16px;
   }
 
   .conteudo {
@@ -2175,4 +2164,225 @@ code {
   text-align: center;
   font-size: 0.78rem;
   color: var(--color-muted-foreground);
+}
+
+/* ===================== Cabeçalho responsivo ===================== */
+.topo-conteudo {
+  max-width: 1280px;
+  gap: 20px;
+}
+
+.menu {
+  gap: 2px;
+}
+
+.menu a {
+  white-space: nowrap;
+  padding: 8px 12px;
+}
+
+.usuario {
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.usuario-info {
+  margin-right: 4px;
+  white-space: nowrap;
+}
+
+/* Itens que só existem dentro do menu "hambúrguer" */
+.menu-usuario,
+.menu-extra,
+.topo-mobile,
+.menu-fundo {
+  display: none;
+}
+
+/* Telas médias: o nome do usuário sai (continua no title do avatar) */
+@media (max-width: 1360px) {
+  .usuario-info {
+    display: none;
+  }
+}
+
+/* Tablets e celulares: menu vira painel aberto pelo botão "hambúrguer" */
+@media (max-width: 1100px) {
+  .topo-conteudo {
+    position: relative;
+    justify-content: space-between;
+  }
+
+  .usuario {
+    display: none;
+  }
+
+  .topo-mobile {
+    display: flex;
+    gap: 8px;
+  }
+
+  .menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 1px);
+    left: 0;
+    right: 0;
+    z-index: 20;
+    flex-direction: column;
+    gap: 2px;
+    padding: 12px 16px 16px;
+    background: var(--color-card);
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: var(--sombra-alta);
+    max-height: calc(100vh - 70px);
+    overflow-y: auto;
+  }
+
+  .menu.aberto {
+    display: flex;
+    animation: surgir 200ms ease both;
+  }
+
+  .menu a,
+  .menu-extra button {
+    padding: 12px 14px;
+    font-size: 1rem;
+  }
+
+  .menu-usuario {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 4px 4px 14px;
+    margin-bottom: 6px;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .menu-usuario .usuario-info {
+    display: flex;
+  }
+
+  .menu-extra {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: 6px;
+    padding-top: 8px;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .menu-extra button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    border: 0;
+    background: none;
+    border-radius: 10px;
+    font: inherit;
+    color: var(--color-danger-text);
+    text-align: left;
+  }
+
+  .menu-extra button:hover {
+    background: var(--color-danger-bg);
+  }
+
+  .menu-fundo {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 9;
+    background: var(--color-overlay);
+    animation: aparecer 200ms ease both;
+  }
+}
+
+/* Filtros: no celular viram uma linha única com rolagem lateral */
+@media (max-width: 600px) {
+  .filtros {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    margin-left: -16px;
+    margin-right: -16px;
+    padding: 2px 16px 6px;
+    scrollbar-width: none;
+  }
+
+  .filtros::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filtro {
+    flex-shrink: 0;
+  }
+
+  .modal {
+    padding: 20px 16px;
+    border-radius: 16px;
+  }
+}
+
+/* Tabela de clientes: no celular cada linha vira um cartão com rótulos */
+@media (max-width: 768px) {
+  .tabela-container {
+    overflow: visible;
+    padding: 0;
+    background: none;
+    border: 0;
+    box-shadow: none;
+  }
+
+  .tabela-container table,
+  .tabela-container tbody,
+  .tabela-container tr,
+  .tabela-container td {
+    display: block;
+    width: 100%;
+  }
+
+  .tabela-container thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  .tabela-container tr {
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--raio);
+    box-shadow: var(--sombra);
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+
+  .tabela-container td {
+    border: 0;
+    padding: 6px 0;
+    text-align: left;
+  }
+
+  .tabela-container td[data-rotulo]::before {
+    content: attr(data-rotulo);
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-muted-foreground);
+    margin-bottom: 2px;
+  }
+
+  .tabela-container td:first-child {
+    padding-bottom: 12px;
+    margin-bottom: 6px;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .tabela-container td.direita {
+    text-align: left;
+  }
 }

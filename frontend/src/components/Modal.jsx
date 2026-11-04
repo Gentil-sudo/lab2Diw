@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import Icone from './Icone.jsx'
 
 export default function Modal({ titulo, aoFechar, children }) {
@@ -14,7 +15,9 @@ export default function Modal({ titulo, aoFechar, children }) {
     }
   }, [aoFechar])
 
-  return (
+  // Portal: o modal é renderizado direto no <body>. Dentro do <main> ele ficaria preso ao
+  // "transform" da animação de entrada e o fundo escuro não cobriria a tela inteira.
+  return createPortal(
     <div className="modal-fundo" onMouseDown={(e) => e.target === e.currentTarget && aoFechar()}>
       <div className="modal" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
         <div className="modal-topo">
@@ -25,6 +28,7 @@ export default function Modal({ titulo, aoFechar, children }) {
         </div>
         {children}
       </div>
-    </div>
+    </div>,
+    document.body,
   )
 }

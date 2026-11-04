@@ -71,8 +71,8 @@ export default function Clientes() {
                     </div>
                   </div>
                 </td>
-                <td>{c.profissao || <span className="sem-dado">Não informada</span>}</td>
-                <td>
+                <td data-rotulo="Profissão">{c.profissao || <span className="sem-dado">Não informada</span>}</td>
+                <td data-rotulo="Rendimentos">
                   {c.rendimentos.length === 0 && <span className="sem-dado">Nenhum informado</span>}
                   {c.rendimentos.map((r) => (
                     <div key={r.id} className="rendimento-item">
@@ -81,7 +81,7 @@ export default function Clientes() {
                     </div>
                   ))}
                 </td>
-                <td className="direita">
+                <td className="direita" data-rotulo="Renda total">
                   <strong className="valor">{formatarDinheiro(c.rendimentos.reduce((soma, r) => soma + r.valor, 0))}</strong>
                 </td>
               </tr>

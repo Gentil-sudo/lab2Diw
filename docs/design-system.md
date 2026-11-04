@@ -2,9 +2,9 @@
 
 > 🎨 **Versão visual:** o design system completo (cores nos modos claro e escuro, tipografia, componentes e ícones) está no próprio site, na rota [`/design-system`](https://lab2-diw.vercel.app/design-system). Este arquivo registra como ele foi gerado.
 
-Gerado com a skill [UI UX Pro Max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) usando a busca `"car rental booking service"`.
+Gerado com a skill [UI UX Pro Max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill).
 
-Comando: `python search.py "car rental booking service" --design-system -p "Aluguel de Carros" -f markdown`
+
 
 > Ajustes feitos na implementação: as animações foram mantidas leves (entrada dos elementos e hover), sem parallax, para não atrapalhar os formulários. Ícones em SVG próprios (componente `Icone.jsx`), sem emojis.
 

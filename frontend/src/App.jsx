@@ -10,12 +10,14 @@ import Automoveis from './pages/Automoveis.jsx'
 import Pedidos from './pages/Pedidos.jsx'
 import AnalisePedidos from './pages/AnalisePedidos.jsx'
 import Contratos from './pages/Contratos.jsx'
+import DesignSystem from './pages/DesignSystem.jsx'
 
 export default function App() {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/cadastro" element={<Cadastro />} />
+      <Route path="/design-system" element={<DesignSystem />} />
 
       <Route element={<RotaProtegida><Layout /></RotaProtegida>}>
         <Route path="/" element={<Inicio />} />

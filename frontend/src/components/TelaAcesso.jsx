@@ -1,4 +1,6 @@
+import { Link } from 'react-router-dom'
 import Icone from './Icone.jsx'
+import BotaoTema from './BotaoTema.jsx'
 
 const VANTAGENS = [
   { icone: 'documento', titulo: 'Pedidos online', texto: 'Faça e acompanhe seus pedidos de qualquer lugar.' },
@@ -10,10 +12,7 @@ export default function TelaAcesso({ children }) {
   return (
     <div className="tela-acesso">
       <aside className="painel-marca">
-        <div className="logo claro">
-          <span className="logo-icone"><Icone nome="carro" tamanho={22} /></span>
-          <span>Aluguel de Carros</span>
-        </div>
+        <img className="logo-completa" src="/logo-alugaaqui.png" alt="AlugaAqui - Aluguel de Carros" />
 
         <div className="painel-texto entrada">
           <span className="selo">Laboratório 02 · PUC Minas</span>
@@ -41,6 +40,12 @@ export default function TelaAcesso({ children }) {
       </aside>
 
       <main className="area-form">
+        <div className="area-form-acoes">
+          <Link to="/design-system" className="link-discreto">
+            <Icone nome="paleta" tamanho={16} /> Design system
+          </Link>
+          <BotaoTema />
+        </div>
         <div className="entrada">{children}</div>
       </main>
     </div>

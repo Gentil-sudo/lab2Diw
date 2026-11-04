@@ -2,6 +2,7 @@ import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext.jsx'
 import { iniciais } from '../utils/mascaras.js'
 import Icone from './Icone.jsx'
+import BotaoTema from './BotaoTema.jsx'
 
 const NOMES_PERFIL = { CLIENTE: 'Cliente', EMPRESA: 'Empresa', BANCO: 'Banco' }
 
@@ -20,9 +21,9 @@ export default function Layout() {
     <>
       <header className="topo">
         <div className="topo-conteudo">
-          <NavLink to="/" className="logo">
-            <span className="logo-icone"><Icone nome="carro" tamanho={20} /></span>
-            <span>Aluguel de Carros</span>
+          <NavLink to="/" className="logo" aria-label="AlugaAqui - página inicial">
+            <img className="logo-emblema" src="/logo-emblema.png" alt="" />
+            <span>Aluga<span className="logo-destaque">Aqui</span></span>
           </NavLink>
 
           <nav className="menu" aria-label="Menu principal">
@@ -41,6 +42,10 @@ export default function Layout() {
               <strong>{usuario.nome}</strong>
               <small>{NOMES_PERFIL[usuario.perfil]}</small>
             </div>
+            <NavLink to="/design-system" className="botao-icone" aria-label="Design system" title="Design system">
+              <Icone nome="paleta" tamanho={18} />
+            </NavLink>
+            <BotaoTema />
             <button className="botao-icone" onClick={sair} aria-label="Sair" title="Sair">
               <Icone nome="sair" tamanho={18} />
             </button>

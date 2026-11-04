@@ -84,7 +84,26 @@ const ICONES = {
       <path d="M14 2v6h6M8 13h8M8 17h5" />
     </>
   ),
+  sol: (
+    <>
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+    </>
+  ),
+  lua: <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />,
+  paleta: (
+    <>
+      <path d="M12 22a10 10 0 1 1 10-10c0 2.8-2.2 4-4 4h-2.5a1.5 1.5 0 0 0-1 2.6 1.5 1.5 0 0 1-1 2.4z" />
+      <circle cx="7.5" cy="11" r="1" />
+      <circle cx="10.5" cy="7" r="1" />
+      <circle cx="15" cy="7.5" r="1" />
+    </>
+  ),
 }
+
+// Usado pela página /design-system para listar todos os ícones disponíveis.
+// eslint-disable-next-line react-refresh/only-export-components
+export const NOMES_ICONES = Object.keys(ICONES)
 
 export default function Icone({ nome, tamanho = 20, className = '' }) {
   return (

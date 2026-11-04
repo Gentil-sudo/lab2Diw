@@ -1,6 +1,7 @@
 package br.pucminas.aluguel.security;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.crypto.SecretKey;
@@ -86,7 +87,12 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of(frontendUrl));
+        // Aceita uma ou mais origens separadas por vírgula (ex.: produção e previews da Vercel com *).
+        config.setAllowedOriginPatterns(Arrays.stream(frontendUrl.split(","))
+                .map(String::trim)
+                .map(origem -> origem.replaceAll("/+$", ""))
+                .filter(origem -> !origem.isEmpty())
+                .toList());
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
 

@@ -141,6 +141,11 @@ Como usuário, quero ver os contratos ligados a mim, para acompanhar meus alugu�
 | CANCELADO | Cliente cancelou |
 | CONTRATADO | Agente executou o contrato |
 
+![Diagrama de estados do pedido](../imagens/uml/estados-pedido-v2.png)
+
+<details>
+<summary>Código Mermaid do diagrama</summary>
+
 ```mermaid
 stateDiagram-v2
     [*] --> EM_ANALISE : cliente cria
@@ -154,6 +159,8 @@ stateDiagram-v2
     CANCELADO --> [*]
     CONTRATADO --> [*]
 ```
+
+</details>
 
 ---
 

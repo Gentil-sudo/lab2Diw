@@ -1,5 +1,7 @@
 # Design System do Front-end
 
+> 🎨 **Versão visual:** o design system completo (cores nos modos claro e escuro, tipografia, componentes e ícones) está no próprio site, na rota [`/design-system`](https://lab2-diw.vercel.app/design-system). Este arquivo registra como ele foi gerado.
+
 Gerado com a skill [UI UX Pro Max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) usando a busca `"car rental booking service"`.
 
 Comando: `python search.py "car rental booking service" --design-system -p "Aluguel de Carros" -f markdown`

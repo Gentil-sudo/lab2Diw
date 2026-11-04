@@ -1,5 +1,10 @@
 # Diagrama de Pacotes (Visão Lógica) — v2
 
+![Diagrama de Pacotes v2](../../imagens/uml/pacotes-v2.png)
+
+<details>
+<summary>Código Mermaid do diagrama</summary>
+
 ```mermaid
 flowchart TB
     subgraph frontend [Subsistema: Construção das Páginas Web - React + Vite]
@@ -44,6 +49,8 @@ flowchart TB
     security --> repository
     repository --> db
 ```
+
+</details>
 
 ## Responsabilidade de cada pacote
 

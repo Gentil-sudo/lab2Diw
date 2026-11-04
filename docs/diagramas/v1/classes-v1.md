@@ -1,5 +1,10 @@
 # Diagrama de Classes — v1
 
+![Diagrama de Classes v1](../../imagens/uml/classes-v1.png)
+
+<details>
+<summary>Código Mermaid do diagrama</summary>
+
 ```mermaid
 classDiagram
     class Usuario {
@@ -104,6 +109,8 @@ classDiagram
     Contrato "1" -- "0..1" ContratoCredito : possui
     Banco "1" --> "0..*" ContratoCredito : concede
 ```
+
+</details>
 
 ## Observações
 

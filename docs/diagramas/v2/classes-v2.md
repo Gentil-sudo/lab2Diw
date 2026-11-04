@@ -2,6 +2,11 @@
 
 Versão revisada depois da implementação. Mostra as classes do pacote `model` como ficaram no código.
 
+![Diagrama de Classes v2](../../imagens/uml/classes-v2.png)
+
+<details>
+<summary>Código Mermaid do diagrama</summary>
+
 ```mermaid
 classDiagram
     class Usuario {
@@ -119,9 +124,16 @@ classDiagram
     Banco "1" --> "0..*" ContratoCredito : concede
 ```
 
+</details>
+
 ## Classes de serviço (regras de negócio)
 
 Na v1 as operações estavam nas entidades. Na v2 elas foram para a camada `service`, como manda o MVC com Spring.
+
+![Classes de serviço v2](../../imagens/uml/classes-servicos-v2.png)
+
+<details>
+<summary>Código Mermaid do diagrama</summary>
 
 ```mermaid
 classDiagram
@@ -163,6 +175,8 @@ classDiagram
         +concederCredito(id, dados, usuario) ContratoResponse
     }
 ```
+
+</details>
 
 ## O que mudou da v1 para a v2
 

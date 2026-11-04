@@ -1,5 +1,10 @@
 # Diagrama de Casos de Uso — v2
 
+![Diagrama de Casos de Uso v2](../../imagens/uml/casos-de-uso-v2.png)
+
+<details>
+<summary>Código Mermaid do diagrama</summary>
+
 ```mermaid
 flowchart LR
     Cliente((Cliente))
@@ -53,6 +58,8 @@ flowchart LR
 
     UC08 -. include .-> UC14
 ```
+
+</details>
 
 ## Descrição dos casos de uso
 

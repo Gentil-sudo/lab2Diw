@@ -5,6 +5,11 @@ O sistema é dividido em dois subsistemas, como pede o enunciado:
 1. **Construção das páginas web** (front-end React + Vite)
 2. **Gestão de pedidos e contratos** (back-end Spring Boot, arquitetura MVC)
 
+![Diagrama de Pacotes v1](../../imagens/uml/pacotes-v1.png)
+
+<details>
+<summary>Código Mermaid do diagrama</summary>
+
 ```mermaid
 flowchart TB
     subgraph frontend [Subsistema: Construção das Páginas Web - React + Vite]
@@ -36,6 +41,8 @@ flowchart TB
     security --> repository
     repository --> db
 ```
+
+</details>
 
 ## Responsabilidade de cada pacote
 
